@@ -10,7 +10,10 @@ public class Turret : MonoBehaviour
     [SerializeField]
     float searchInterval = 0.25f;
 
-   Transform target;
+    [SerializeField]
+    GameObject partToRotate;
+
+    Transform target;
 
     // Start is called before the first frame update
     void Start()
@@ -21,14 +24,14 @@ public class Turret : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(target == null)
+        if (target == null)
         {
             return;
         }
 
         Vector3 direction = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = lookRotation;
+        partToRotate.transform.rotation = lookRotation;
     }
 
     private void OnDrawGizmosSelected()
