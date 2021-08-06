@@ -13,6 +13,15 @@ public class Turret : MonoBehaviour
     [SerializeField]
     GameObject partToRotate;
 
+    [SerializeField]
+    GameObject partToElevate;
+
+    [SerializeField]
+    float rotationSpeed = 5f;
+
+    [SerializeField]
+    float elevationSpeed = 2f;
+
     Transform target;
 
     // Start is called before the first frame update
@@ -30,8 +39,28 @@ public class Turret : MonoBehaviour
         }
 
         Vector3 direction = target.position - transform.position;
+        RotateTurret(direction);
+        ElevateGuns(direction);
+    }
+
+    void RotateTurret(Vector3 direction)
+    {
+        direction.y = 0;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
-        partToRotate.transform.rotation = lookRotation;
+        partToRotate.transform.rotation = Quaternion.Lerp(partToRotate.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    void ElevateGuns(Vector3 direction)
+    {
+        // Calculate angle by cosine function
+        float targetDistance = direction.magnitude;
+        direction.y = 0;
+        float targetRange = direction.magnitude;
+        float angle = -Mathf.Acos(targetRange / targetDistance) * 180 / Mathf.PI;
+        angle = Mathf.Clamp(angle, -30f, 0f);
+
+        Quaternion lookRotation = Quaternion.Euler(new Vector3(angle, 0f, 0f));
+        partToElevate.transform.localRotation = Quaternion.Lerp(partToElevate.transform.localRotation, lookRotation, elevationSpeed * Time.deltaTime);
     }
 
     private void OnDrawGizmosSelected()
@@ -46,7 +75,6 @@ public class Turret : MonoBehaviour
             Mob[] mobs = FindObjectsOfType<Mob>();
             target = GetClosestTargetFromEndPoint(mobs);
             yield return new WaitForSeconds(searchInterval);
-            //yield return LockTarget();
         }
     }
 
