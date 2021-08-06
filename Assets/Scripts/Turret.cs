@@ -45,7 +45,7 @@ public class Turret : MonoBehaviour
 
     void RotateTurret(Vector3 direction)
     {
-        direction.y = 0;
+        direction.y = 0f;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         partToRotate.transform.rotation = Quaternion.Lerp(partToRotate.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
     }
@@ -54,7 +54,7 @@ public class Turret : MonoBehaviour
     {
         // Calculate angle by cosine function
         float targetDistance = direction.magnitude;
-        direction.y = 0;
+        direction.y = 0f;
         float targetRange = direction.magnitude;
         float angle = -Mathf.Acos(targetRange / targetDistance) * 180 / Mathf.PI;
         angle = Mathf.Clamp(angle, -30f, 0f);
