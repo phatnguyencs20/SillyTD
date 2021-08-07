@@ -3,34 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class SpawnMobs : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
+    [Header("Specifications")]
+    [SerializeField]
+    float timeBetweenWaves;
+    [SerializeField]
+    float timeBetweenMobs;
+    [SerializeField]
+    float timeBetweenGroups;
+    [SerializeField]
+    int mobsPerWave;
+    [SerializeField]
+    int mobsPerGroup;
+
+    [Header("Unity Objects")]
     [SerializeField]
     GameObject[] mobWaves;
-
     [SerializeField]
     TMP_Text waveCountdownText;
 
-    [SerializeField]
-    float timeBetweenWaves = 5f;
-
-    [SerializeField]
-    float timeBetweenMobs = 0.75f;
-
-    [SerializeField]
-    float timeBetweenGroups = 0.75f;
-
-    [SerializeField]
-    int mobsPerWave = 12;
-
-    [SerializeField]
-    int mobsPerGroup = 4;
-
     int nextMobWaves;
+
+    Spawner()
+    {
+        nextMobWaves = 0;
+    }
 
     void Start()
     {
-        nextMobWaves = 0;
         StartCoroutine(Spawn());
     }
 

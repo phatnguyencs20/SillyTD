@@ -6,7 +6,7 @@ public class WayPoints : MonoBehaviour
 {
     static public Transform[] wayPoints;
 
-    private void Awake()
+    void Awake()
     {
         wayPoints = new Transform[transform.childCount];
         for (int i = 0; i < wayPoints.Length; i++)

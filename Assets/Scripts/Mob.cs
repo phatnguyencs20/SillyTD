@@ -4,31 +4,44 @@ using UnityEngine;
 
 public class Mob : MonoBehaviour
 {
+    [Header("Specifications")]
     [SerializeField]
-    float speed = 5f;
+    float movementSpeed;
+    [SerializeField]
+    float rotationSpeed;
 
+    int nextWayPointIndex;
+    Vector3 directionToMove;
     Transform waypointToMove;
-    int nextWayPointIndex = 0;
-
+    
+    Mob()
+    {
+        nextWayPointIndex = 0;
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
         waypointToMove = WayPoints.wayPoints[nextWayPointIndex];
+        directionToMove = waypointToMove.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(directionToMove);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 directionToMove = waypointToMove.position - transform.position;
-        transform.Translate(directionToMove.normalized * speed * Time.deltaTime);
+        transform.Translate(directionToMove.normalized * movementSpeed * Time.deltaTime, Space.World);
+        Quaternion lookRotation = Quaternion.LookRotation(directionToMove);
+        transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
-        if(Vector3.Distance(waypointToMove.position, transform.position) <= 0.1f)
+        if (Vector3.Distance(waypointToMove.position, transform.position) <= 0.1f)
         {
-            if(nextWayPointIndex < WayPoints.wayPoints.Length - 1)
+            if (nextWayPointIndex < WayPoints.wayPoints.Length - 1)
             {
                 nextWayPointIndex++;
                 waypointToMove = GetNextWayPoint(nextWayPointIndex);
-            }  
+                directionToMove = waypointToMove.position - transform.position;
+            }
         }
     }
 
