@@ -18,3 +18,4 @@
 - Added LargeNode for building LargeTurret
 - Added kill credit for zombies
 - Added credit cost for turrets
+- Fixed turrets can shoot before they point to targets
