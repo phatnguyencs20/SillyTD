@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class ArtilleryTurret : MonoBehaviour
 {
     [Header("Specifications")]
     [SerializeField]
@@ -15,6 +15,8 @@ public class Turret : MonoBehaviour
     float rotationSpeed;
     [SerializeField]
     float elevationSpeed;
+    [SerializeField]
+    int cost;
     
     [Header("Unity Objects")]
     [SerializeField]
@@ -96,7 +98,6 @@ public class Turret : MonoBehaviour
     }
 
 
-
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, range);
@@ -155,5 +156,10 @@ public class Turret : MonoBehaviour
         }
 
         return closestTargetFromEndPoint;
+    }
+
+    public int GetCost()
+    {
+        return cost;
     }
 }

@@ -9,6 +9,8 @@ public class Mob : MonoBehaviour
     float movementSpeed;
     [SerializeField]
     float rotationSpeed;
+    [SerializeField]
+    int credit;
 
     int nextWayPointIndex;
     Vector3 directionToMove;
@@ -44,6 +46,11 @@ public class Mob : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        GameManager.gameManager.totalCredit += credit;
+    }
+
     Transform GetNextWayPoint(int nextWayPointIndex)
     {
         return WayPoints.wayPoints[nextWayPointIndex];
@@ -69,5 +76,10 @@ public class Mob : MonoBehaviour
         }
 
         return pathLength;
+    }
+
+    public int GetCredit()
+    {
+        return credit;
     }
 }

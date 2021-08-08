@@ -20,14 +20,14 @@ public class Spawner : MonoBehaviour
     [Header("Unity Objects")]
     [SerializeField]
     GameObject[] mobWaves;
-    //[SerializeField]
-    //TMP_Text waveCountdownText;
 
+    TMP_Text waveCountdownText;
     int nextMobWaves;
 
-    Spawner()
+    void Awake()
     {
         nextMobWaves = 0;
+        waveCountdownText = GameObject.Find("WaveCountdownText").GetComponent<TMP_Text>();
     }
 
     void Start()
@@ -66,7 +66,7 @@ public class Spawner : MonoBehaviour
             tempNextMobWaves++;
             if (tempNextMobWaves == mobWaves.Length)
             {
-                //waveCountdownText.text = "END";
+                waveCountdownText.text = "END";
                 yield break;
             }
 
@@ -74,11 +74,11 @@ public class Spawner : MonoBehaviour
             int countDown = Mathf.RoundToInt(timeBetweenWaves);
             while (countDown > 0)
             {
-                //waveCountdownText.text = countDown.ToString();
+                waveCountdownText.text = countDown.ToString();
                 yield return new WaitForSeconds(1f);
                 countDown--;
             }
-            //waveCountdownText.text = "";  
+            waveCountdownText.text = "";  
         }
     }
 }

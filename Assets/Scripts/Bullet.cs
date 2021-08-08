@@ -13,12 +13,14 @@ public class Bullet : MonoBehaviour
 
     Vector3 direction;
     Vector3 initialPosition;
+    Vector3 targetPosition;
 
     void Start()
     {
         initialPosition = transform.position;
-        direction = target.position - transform.position;
-        direction.y = 0.5f;
+        targetPosition = target.position;
+        direction = targetPosition - transform.position;
+        direction.y = 0.5f; // Offset
         Destroy(gameObject, 5f);
     }
 
@@ -38,7 +40,7 @@ public class Bullet : MonoBehaviour
 
     void TargetHit()
     {
-        Instantiate(explosionHitBox, target.transform.position, explosionHitBox.transform.rotation);
+        Instantiate(explosionHitBox, targetPosition, explosionHitBox.transform.rotation); 
         Destroy(gameObject);
     }
 }
