@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
 
     [SerializeField]
     float speed;
+    [SerializeField]
+    GameObject explosionHitBox;
 
     Vector3 direction;
     Vector3 initialPosition;
@@ -17,13 +19,14 @@ public class Bullet : MonoBehaviour
         initialPosition = transform.position;
         direction = target.position - transform.position;
         direction.y = 0.5f;
-        StartCoroutine(SelfDestruct());
+        Destroy(gameObject, 5f);
     }
 
     void Update()
     {
         Vector3 currentDirection = transform.position - initialPosition;
 
+        // Prevent flying passes target
         if (currentDirection.magnitude >= direction.magnitude)
         {
             TargetHit();
@@ -35,13 +38,7 @@ public class Bullet : MonoBehaviour
 
     void TargetHit()
     {
-        Debug.Log("Hit!!");
-        Destroy(gameObject);
-    }
-
-    IEnumerator SelfDestruct()
-    {
-        yield return new WaitForSeconds(5f);
+        Instantiate(explosionHitBox, target.transform.position, explosionHitBox.transform.rotation);
         Destroy(gameObject);
     }
 }

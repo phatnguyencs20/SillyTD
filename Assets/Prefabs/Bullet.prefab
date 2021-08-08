@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 20
+  explosionHitBox: {fileID: 2542364167791919442, guid: b46b2e7593c21e44182705b8fcbe4a2e, type: 3}
 --- !u!1 &3023207054614544792
 GameObject:
   m_ObjectHideFlags: 0

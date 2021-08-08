@@ -19,7 +19,6 @@ public class Mob : MonoBehaviour
         nextWayPointIndex = 0;
     }
     
-    // Start is called before the first frame update
     void Start()
     {
         waypointToMove = WayPoints.wayPoints[nextWayPointIndex];
@@ -27,13 +26,13 @@ public class Mob : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(directionToMove);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         transform.Translate(directionToMove.normalized * movementSpeed * Time.deltaTime, Space.World);
         Quaternion lookRotation = Quaternion.LookRotation(directionToMove);
         transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
 
+        // If destination is reached, find next destination 
         if (Vector3.Distance(waypointToMove.position, transform.position) <= 0.1f)
         {
             if (nextWayPointIndex < WayPoints.wayPoints.Length - 1)

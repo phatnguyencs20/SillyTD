@@ -25,18 +25,18 @@ public class Turret : MonoBehaviour
     GameObject bullet;
     [SerializeField]
     GameObject firePoint;
-    public Transform target;
+    [SerializeField]
+    GameObject barrelFire;
 
+    Transform target;
     float fireCountdown;
     
-    // Start is called before the first frame update
     void Start()
     {
         fireCountdown = fireCooldown;
         StartCoroutine(SearchTarget());
     }
 
-    //Update is called once per frame
     void Update()
     {
         if (target == null)
@@ -53,7 +53,8 @@ public class Turret : MonoBehaviour
         RotateTurret(direction);
         ElevateGuns(direction);
 
-        if (fireCountdown >= fireCooldown)
+        // Only shoot when not on cooldown or on rotation
+        if (fireCountdown >= fireCooldown && RotationDone(direction))
         {
             fireCountdown = 0f;
             Shoot();
@@ -63,8 +64,10 @@ public class Turret : MonoBehaviour
 
     void Shoot()
     {
-        GameObject currentBullet = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation);
-        currentBullet.GetComponent<Bullet>().target = target;
+        ParticleSystem particle = Instantiate(barrelFire, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform).GetComponent<ParticleSystem>();
+        Destroy(particle.gameObject, particle.main.duration);
+        Bullet currentBullet = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation).GetComponent<Bullet>();
+        currentBullet.target = target;
     }
 
     void RotateTurret(Vector3 direction)
@@ -72,6 +75,11 @@ public class Turret : MonoBehaviour
         direction.y = 0f;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         partToRotate.transform.rotation = Quaternion.LerpUnclamped(partToRotate.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+    }
+
+    bool RotationDone(Vector3 direction)
+    {
+        return Quaternion.Angle(partToRotate.transform.rotation, Quaternion.LookRotation(direction)) <= 10f;
     }
 
     void ElevateGuns(Vector3 direction)
@@ -96,8 +104,10 @@ public class Turret : MonoBehaviour
 
     IEnumerator SearchTarget()
     {
+        // Only search on interval
         while (true)
         {
+            // If target is in range, do not change target
             if (!TargetLocked())
             {
                 Mob[] mobs = FindObjectsOfType<Mob>();
@@ -112,22 +122,22 @@ public class Turret : MonoBehaviour
         return (target != null && Vector3.Distance(transform.position, target.position) <= range);
     }
 
-    Transform GetClosestTarget(Mob[] mobs)
-    {
-        Transform closestTarget = null;
-        float closestDistance = float.PositiveInfinity;
-        foreach (var mob in mobs)
-        {
-            float targetDistance = Vector3.Distance(transform.position, mob.transform.position);
-            if (targetDistance <= range && targetDistance < closestDistance)
-            {
-                closestTarget = mob.transform;
-                closestDistance = targetDistance;
-            }
-        }
+    //Transform GetClosestTarget(Mob[] mobs)
+    //{
+    //    Transform closestTarget = null;
+    //    float closestDistance = float.PositiveInfinity;
+    //    foreach (var mob in mobs)
+    //    {
+    //        float targetDistance = Vector3.Distance(transform.position, mob.transform.position);
+    //        if (targetDistance <= range && targetDistance < closestDistance)
+    //        {
+    //            closestTarget = mob.transform;
+    //            closestDistance = targetDistance;
+    //        }
+    //    }
 
-        return closestTarget;
-    }
+    //    return closestTarget;
+    //}
 
     Transform GetClosestTargetFromEndPoint(Mob[] mobs)
     {

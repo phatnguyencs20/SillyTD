@@ -7,21 +7,21 @@ public class Spawner : MonoBehaviour
 {
     [Header("Specifications")]
     [SerializeField]
+    int mobsPerWave;
+    [SerializeField]
     float timeBetweenWaves;
     [SerializeField]
-    float timeBetweenMobs;
+    int mobsPerGroup;
     [SerializeField]
     float timeBetweenGroups;
     [SerializeField]
-    int mobsPerWave;
-    [SerializeField]
-    int mobsPerGroup;
+    float timeBetweenMobs;
 
     [Header("Unity Objects")]
     [SerializeField]
     GameObject[] mobWaves;
-    [SerializeField]
-    TMP_Text waveCountdownText;
+    //[SerializeField]
+    //TMP_Text waveCountdownText;
 
     int nextMobWaves;
 
@@ -44,15 +44,16 @@ public class Spawner : MonoBehaviour
             int tempMobsPerWave = mobsPerWave;
             while (tempMobsPerWave > 0)
             {
-                yield return new WaitForSeconds(timeBetweenMobs);
+                Instantiate(mobWaves[tempNextMobWaves], transform.position, transform.rotation);
+                tempMobsPerWave--;
 
                 if (tempMobsPerWave % mobsPerGroup == 0)
                 {
                     yield return new WaitForSeconds(timeBetweenGroups);
+                } else
+                {
+                    yield return new WaitForSeconds(timeBetweenMobs);
                 }
-
-                Instantiate(mobWaves[tempNextMobWaves], transform);
-                tempMobsPerWave--;
             }
 
             // Wait for the last mob to disappear
@@ -65,7 +66,7 @@ public class Spawner : MonoBehaviour
             tempNextMobWaves++;
             if (tempNextMobWaves == mobWaves.Length)
             {
-                waveCountdownText.text = "END";
+                //waveCountdownText.text = "END";
                 yield break;
             }
 
@@ -73,11 +74,11 @@ public class Spawner : MonoBehaviour
             int countDown = Mathf.RoundToInt(timeBetweenWaves);
             while (countDown > 0)
             {
-                waveCountdownText.text = countDown.ToString();
+                //waveCountdownText.text = countDown.ToString();
                 yield return new WaitForSeconds(1f);
                 countDown--;
             }
-            waveCountdownText.text = "";  
+            //waveCountdownText.text = "";  
         }
     }
 }
