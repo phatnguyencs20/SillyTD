@@ -17,20 +17,20 @@ public class CameraMovement : MonoBehaviour
     // Track scrolling
     float newPositionY;
 
-    Transform focusPoint;
-    float initialFocusPointY;
+    Transform pivot;
+    float initialpivotY;
 
     void Awake()
     {
         velocity = Vector3.zero;
         newPositionY = transform.position.y;
-        focusPoint = GameObject.Find("FocusPoint").GetComponent<Transform>();
-        initialFocusPointY = focusPoint.position.y;
+        pivot = GameObject.Find("Pivot").GetComponent<Transform>();
+        initialpivotY = pivot.position.y;
     }
 
     void Update()
     {
-        if(Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panPadding)
+        if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panPadding)
         {
             transform.Translate(Vector3.forward * panSpeed * Time.deltaTime, Space.World);
         }
@@ -46,7 +46,7 @@ public class CameraMovement : MonoBehaviour
         {
             transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
         }
-        
+
         // Smooth scrolling
         float scroll = Input.GetAxis("Mouse ScrollWheel") * scrollSpeed * 1000f * Time.deltaTime;
         newPositionY -= scroll;
@@ -56,7 +56,7 @@ public class CameraMovement : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, 0.5f);
 
         // Rotate camera after scrolling
-        Vector3 direction = new Vector3(focusPoint.position.x, initialFocusPointY, focusPoint.position.z) - newPosition;
+        Vector3 direction = new Vector3(pivot.position.x, initialpivotY, pivot.position.z) - newPosition;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, scrollSpeed / 5f * Time.deltaTime);
     }

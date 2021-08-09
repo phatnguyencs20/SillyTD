@@ -1693,7 +1693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1873039542}
   m_Layer: 0
-  m_Name: FocusPoint
+  m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
