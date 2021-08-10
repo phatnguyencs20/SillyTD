@@ -5,22 +5,22 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
-    float panSpeed;
+    private float panSpeed;
     [SerializeField]
-    float panPadding;
+    private float panPadding;
     [SerializeField]
-    float scrollSpeed;
+    private float scrollSpeed;
 
     // Scrolling velocity
-    Vector3 velocity;
+    private Vector3 velocity;
 
     // Track scrolling
-    float newPositionY;
+    private float newPositionY;
 
-    Transform pivot;
-    float initialpivotY;
+    private Transform pivot;
+    private float initialpivotY;
 
-    void Awake()
+    private void Awake()
     {
         velocity = Vector3.zero;
         newPositionY = transform.position.y;
@@ -28,7 +28,7 @@ public class CameraMovement : MonoBehaviour
         initialpivotY = pivot.position.y;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panPadding)
         {

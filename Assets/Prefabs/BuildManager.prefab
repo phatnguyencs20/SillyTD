@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5757444627161256836}
-  - component: {fileID: 5745718453196695871}
+  - component: {fileID: 931365599}
   m_Layer: 0
-  m_Name: TurretManager
+  m_Name: BuildManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5745718453196695871
+--- !u!114 &931365599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,8 +40,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5380829835019084759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff7782abbbe7ac04dbff67b27d7e10f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 305f4a2023815744ea25b63bfb292d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turretPositionOffset: {x: 0, y: 0.6, z: 0}
   artilleryTurret: {fileID: 6906786094303682216, guid: dfe5bdb0037e2514d94dac66028e9b3e, type: 3}
   standardTurret: {fileID: 0}

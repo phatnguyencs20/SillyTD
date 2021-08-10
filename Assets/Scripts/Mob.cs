@@ -6,29 +6,29 @@ public class Mob : MonoBehaviour
 {
     [Header("Specifications")]
     [SerializeField]
-    float movementSpeed;
+    private float movementSpeed;
     [SerializeField]
-    float rotationSpeed;
+    private float rotationSpeed;
     [SerializeField]
-    int credit;
+    private int credit;
 
-    int nextWayPointIndex;
-    Vector3 directionToMove;
-    Transform waypointToMove;
-    
-    Mob()
+    private int nextWayPointIndex;
+    private Vector3 directionToMove;
+    private Transform waypointToMove;
+
+    private void Awake()
     {
         nextWayPointIndex = 0;
     }
-    
-    void Start()
+
+    private void Start()
     {
         waypointToMove = WayPoints.wayPoints[nextWayPointIndex];
         directionToMove = waypointToMove.position - transform.position;
         transform.rotation = Quaternion.LookRotation(directionToMove);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         transform.Translate(directionToMove.normalized * movementSpeed * Time.deltaTime, Space.World);
         Quaternion lookRotation = Quaternion.LookRotation(directionToMove);
@@ -46,12 +46,12 @@ public class Mob : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
-        GameManager.gameManager.totalCredit += credit;
+        BuildManager.buildManager.totalCredit += credit;
     }
 
-    Transform GetNextWayPoint(int nextWayPointIndex)
+    private Transform GetNextWayPoint(int nextWayPointIndex)
     {
         return WayPoints.wayPoints[nextWayPointIndex];
     }

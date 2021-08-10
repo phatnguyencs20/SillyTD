@@ -5,9 +5,9 @@ using UnityEngine;
 public class ExplosionHitBox : MonoBehaviour
 {
     [SerializeField]
-    GameObject explosion;
+    private GameObject explosion;
 
-    void Start()
+    private void Awake()
     {
         ParticleSystem particle = Instantiate(explosion, transform.position, explosion.transform.rotation).GetComponent<ParticleSystem>();
         Destroy(particle.gameObject, particle.main.duration);

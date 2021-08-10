@@ -202,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6093939806082188306}
-  - component: {fileID: 422105592}
+  - component: {fileID: 2754497531308649920}
   m_Layer: 0
   m_Name: ArtilleryTurret
   m_TagString: LargeTurret
@@ -226,7 +226,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &422105592
+--- !u!114 &2754497531308649920
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,20 +235,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6906786094303682216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba84340ac3d12ed408086422ec21a072, type: 3}
+  m_Script: {fileID: 11500000, guid: 6dda575e5c152f149a5f33e158d46d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireCooldown: 10
   range: 15
   searchInterval: 0.25
-  rotationSpeed: 5
-  elevationSpeed: 2
-  cost: 500
+  fireCooldown: 10
+  rotationSpeed: 10
+  elevationSpeed: 10
+  cost: 200
+  modelHeight: 0.8
   partToRotate: {fileID: 7151122210392594791}
   partToElevate: {fileID: 2070505958040207379}
-  bullet: {fileID: 1457207558488660543, guid: dfcb2f0138a215840a086485d0c1de30, type: 3}
   firePoint: {fileID: 1106003865522855168}
-  barrelFire: {fileID: 1692517446758730, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
+  fireEffect: {fileID: 1692517446758730, guid: 08fd1b80cc24cc8439f45fda3c558255, type: 3}
+  bullet: {fileID: 1457207558488660543, guid: dfcb2f0138a215840a086485d0c1de30, type: 3}
 --- !u!1 &7151122210392594791
 GameObject:
   m_ObjectHideFlags: 0

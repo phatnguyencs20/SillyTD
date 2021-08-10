@@ -5,24 +5,42 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     [SerializeField]
-    Color hoverColor;
+    private Color hoverColor;
 
-    Color initialColor;
-    Renderer nodeRenderer;
+    private Color initialColor;
+    private Renderer nodeRenderer;
+    private GameObject turret;
 
-    void Awake()
+    private void Awake()
     {
         nodeRenderer = GetComponent<Renderer>();
         initialColor = nodeRenderer.material.color;
     }
 
-    void OnMouseEnter()
+    private void OnMouseEnter()
     {
         nodeRenderer.material.color = hoverColor;
     }
 
-    void OnMouseExit()
+    private void OnMouseExit()
     {
         nodeRenderer.material.color = initialColor;
     }
+
+    private void OnMouseDown()
+    {
+        NodeUI.nodeUI.SelectNode(this);
+        BuildManager.buildManager.SelectNode(this);
+    }
+
+    public GameObject GetTurret()
+    {
+        return turret;
+    }
+
+    public void SetTurret(GameObject turretToSet)
+    {
+        turret = turretToSet;
+    }
 }
+

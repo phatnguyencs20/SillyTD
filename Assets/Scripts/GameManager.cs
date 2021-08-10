@@ -7,11 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
 
-    public int totalCredit;
-
-    public TMP_Text waveCountdownText;
-
-    void Awake()
+    private void Awake()
     {
         if (gameManager != null)
         {
@@ -21,11 +17,5 @@ public class GameManager : MonoBehaviour
         {
             gameManager = this;
         }
-        waveCountdownText = GameObject.Find("TotalCreditText").GetComponent<TMP_Text>();
-    }
-
-    void Update()
-    {
-        waveCountdownText.text = "Credit: " + totalCredit.ToString();
     }
 }

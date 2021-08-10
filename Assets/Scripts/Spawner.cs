@@ -7,35 +7,35 @@ public class Spawner : MonoBehaviour
 {
     [Header("Specifications")]
     [SerializeField]
-    int mobsPerWave;
+    private int mobsPerWave;
     [SerializeField]
-    float timeBetweenWaves;
+    private float timeBetweenWaves;
     [SerializeField]
-    int mobsPerGroup;
+    private int mobsPerGroup;
     [SerializeField]
-    float timeBetweenGroups;
+    private float timeBetweenGroups;
     [SerializeField]
-    float timeBetweenMobs;
+    private float timeBetweenMobs;
 
     [Header("Unity Objects")]
     [SerializeField]
-    GameObject[] mobWaves;
+    private GameObject[] mobWaves;
 
-    TMP_Text waveCountdownText;
-    int nextMobWaves;
+    private TMP_Text waveCountdownText;
+    private int nextMobWaves;
 
-    void Awake()
+    private void Awake()
     {
         nextMobWaves = 0;
-        waveCountdownText = GameObject.Find("WaveCountdownText").GetComponent<TMP_Text>();
+        waveCountdownText = GameObject.Find("WaveCountdownText").GetComponent<TMP_Text>();   
     }
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(Spawn());
     }
 
-    IEnumerator Spawn()
+    private IEnumerator Spawn()
     {
         int tempNextMobWaves = nextMobWaves;
         while (tempNextMobWaves < mobWaves.Length)

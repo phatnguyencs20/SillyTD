@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class End : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Mob")
         {

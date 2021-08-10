@@ -2,44 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArtilleryTurret : MonoBehaviour
+public class ArtilleryTurret : Turret
 {
-    [Header("Specifications")]
+    [Header("Unity Specifications")]
     [SerializeField]
-    float fireCooldown;
-    [SerializeField]
-    float range;
-    [SerializeField]
-    float searchInterval;
-    [SerializeField]
-    float rotationSpeed;
-    [SerializeField]
-    float elevationSpeed;
-    [SerializeField]
-    int cost;
-    
-    [Header("Unity Objects")]
-    [SerializeField]
-    GameObject partToRotate;
-    [SerializeField]
-    GameObject partToElevate;
-    [SerializeField]
-    GameObject bullet;
-    [SerializeField]
-    GameObject firePoint;
-    [SerializeField]
-    GameObject barrelFire;
+    private GameObject bullet;
 
-    Transform target;
-    float fireCountdown;
-    
-    void Start()
+    private void Awake()
     {
         fireCountdown = fireCooldown;
+    }
+
+    private void Start()
+    {
         StartCoroutine(SearchTarget());
     }
 
-    void Update()
+    private void Update()
     {
         if (target == null)
         {
@@ -47,7 +26,7 @@ public class ArtilleryTurret : MonoBehaviour
             {
                 fireCountdown += Time.deltaTime;
             }
-   
+
             return;
         }
 
@@ -59,32 +38,32 @@ public class ArtilleryTurret : MonoBehaviour
         if (fireCountdown >= fireCooldown && RotationDone(direction))
         {
             fireCountdown = 0f;
-            Shoot();
+            Fire();
         }
         fireCountdown += Time.deltaTime;
     }
 
-    void Shoot()
+    protected override void Fire()
     {
-        ParticleSystem particle = Instantiate(barrelFire, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform).GetComponent<ParticleSystem>();
+        ParticleSystem particle = Instantiate(fireEffect, firePoint.transform.position, firePoint.transform.rotation, firePoint.transform).GetComponent<ParticleSystem>();
         Destroy(particle.gameObject, particle.main.duration);
         Bullet currentBullet = Instantiate(bullet, firePoint.transform.position, firePoint.transform.rotation).GetComponent<Bullet>();
         currentBullet.target = target;
     }
 
-    void RotateTurret(Vector3 direction)
+    protected override void RotateTurret(Vector3 direction)
     {
         direction.y = 0f;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         partToRotate.transform.rotation = Quaternion.LerpUnclamped(partToRotate.transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
     }
 
-    bool RotationDone(Vector3 direction)
+    private bool RotationDone(Vector3 direction)
     {
         return Quaternion.Angle(partToRotate.transform.rotation, Quaternion.LookRotation(direction)) <= 10f;
     }
 
-    void ElevateGuns(Vector3 direction)
+    protected override void ElevateGuns(Vector3 direction)
     {
         // Calculate angle by cosine function
         float targetDistance = direction.magnitude;
@@ -95,71 +74,5 @@ public class ArtilleryTurret : MonoBehaviour
 
         Quaternion lookRotation = Quaternion.Euler(new Vector3(angle, 0f, 0f));
         partToElevate.transform.localRotation = Quaternion.LerpUnclamped(partToElevate.transform.localRotation, lookRotation, elevationSpeed * Time.deltaTime);
-    }
-
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(transform.position, range);
-    }
-
-    IEnumerator SearchTarget()
-    {
-        // Only search on interval
-        while (true)
-        {
-            // If target is in range, do not change target
-            if (!TargetLocked())
-            {
-                Mob[] mobs = FindObjectsOfType<Mob>();
-                target = GetClosestTargetFromEndPoint(mobs);
-            }
-            yield return new WaitForSeconds(searchInterval);
-        }
-    }
-
-    bool TargetLocked()
-    {
-        return (target != null && Vector3.Distance(transform.position, target.position) <= range);
-    }
-
-    //Transform GetClosestTarget(Mob[] mobs)
-    //{
-    //    Transform closestTarget = null;
-    //    float closestDistance = float.PositiveInfinity;
-    //    foreach (var mob in mobs)
-    //    {
-    //        float targetDistance = Vector3.Distance(transform.position, mob.transform.position);
-    //        if (targetDistance <= range && targetDistance < closestDistance)
-    //        {
-    //            closestTarget = mob.transform;
-    //            closestDistance = targetDistance;
-    //        }
-    //    }
-
-    //    return closestTarget;
-    //}
-
-    Transform GetClosestTargetFromEndPoint(Mob[] mobs)
-    {
-        Transform closestTargetFromEndPoint = null;
-        float closestDistanceFromEndPoint = float.PositiveInfinity;
-        foreach (var mob in mobs)
-        {
-            float targetDistance = Vector3.Distance(transform.position, mob.transform.position);
-            float targetDistanceFromEndPoint = mob.GetPathLengthFromEndPoint();
-            if (targetDistance <= range && targetDistanceFromEndPoint < closestDistanceFromEndPoint)
-            {
-                closestTargetFromEndPoint = mob.transform;
-                closestDistanceFromEndPoint = targetDistanceFromEndPoint;
-            }
-        }
-
-        return closestTargetFromEndPoint;
-    }
-
-    public int GetCost()
-    {
-        return cost;
     }
 }
