@@ -1802,6 +1802,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 931365599}
+    - target: {fileID: 6418210190822430377, guid: c16e286027cc2a642940f3cb792ab7c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BuildTurret
+      objectReference: {fileID: 0}
+    - target: {fileID: 6418210190865517267, guid: c16e286027cc2a642940f3cb792ab7c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 931365599}
+    - target: {fileID: 6418210190865517267, guid: c16e286027cc2a642940f3cb792ab7c3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeTurret
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c16e286027cc2a642940f3cb792ab7c3, type: 3}
 --- !u!1001 &8306012294814034512
