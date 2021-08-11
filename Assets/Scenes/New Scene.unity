@@ -1612,7 +1612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7b7f9fb30a67340b5b9457929f70eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 20
+  panSpeed: 1
   panPadding: 10
   panMinX: -20
   panMaxX: 20
