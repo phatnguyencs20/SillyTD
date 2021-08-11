@@ -1,0 +1,7 @@
+# Mechanics
+- Clamped camera panning
+- Created PlayerStats to store player statistics
+- Added sell turret function
+- Added upgrade turret function
+- Added turret level
+- Turret transforms now can be copied

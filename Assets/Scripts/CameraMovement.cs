@@ -1,15 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    [Header("Camera panning")]
     [SerializeField]
     private float panSpeed;
     [SerializeField]
     private float panPadding;
     [SerializeField]
+    private float panMinX;
+    [SerializeField]
+    private float panMaxX;
+    [SerializeField]
+    private float panMinZ;
+    [SerializeField]
+    private float panMaxZ;
+
+    [Header("Camera scrolling")]
+    [SerializeField]
     private float scrollSpeed;
+    [SerializeField]
+    private float scrollMin;
+    [SerializeField]
+    private float scrollMax;
 
     // Scrolling velocity
     private Vector3 velocity;
@@ -30,6 +43,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
+        
         if (Input.GetKey("w") || Input.mousePosition.y >= Screen.height - panPadding)
         {
             transform.Translate(Vector3.forward * panSpeed * Time.deltaTime, Space.World);
@@ -47,12 +61,17 @@ public class CameraMovement : MonoBehaviour
             transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
         }
 
+        // Clamp panning
+        Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        newPosition.x = Mathf.Clamp(newPosition.x, panMinX, panMaxX);
+        newPosition.z = Mathf.Clamp(newPosition.z, panMinZ, panMaxZ);
+        transform.position = newPosition;
+
         // Smooth scrolling
         float scroll = Input.GetAxis("Mouse ScrollWheel") * scrollSpeed * 1000f * Time.deltaTime;
         newPositionY -= scroll;
-        newPositionY = Mathf.Clamp(newPositionY, 5f, 20f);
-        Vector3 newPosition = new Vector3(transform.position.x, newPositionY, transform.position.z);
-        newPosition.y = Mathf.Clamp(newPosition.y, 5f, 20f);
+        newPositionY = Mathf.Clamp(newPositionY, scrollMin, scrollMax);
+        newPosition = new Vector3(transform.position.x, newPositionY, transform.position.z);
         transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, 0.5f);
 
         // Rotate camera after scrolling

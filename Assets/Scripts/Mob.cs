@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Mob : MonoBehaviour
@@ -10,7 +8,9 @@ public class Mob : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
     [SerializeField]
-    private int credit;
+    private int killCredit;
+    [SerializeField]
+    private int killResearchPoint;
 
     private int nextWayPointIndex;
     private Vector3 directionToMove;
@@ -48,7 +48,7 @@ public class Mob : MonoBehaviour
 
     private void OnDestroy()
     {
-        BuildManager.buildManager.totalCredit += credit;
+        PlayerStats.credit += killCredit;
     }
 
     private Transform GetNextWayPoint(int nextWayPointIndex)
@@ -63,6 +63,7 @@ public class Mob : MonoBehaviour
         Transform pointA = transform;
         Transform pointB = WayPoints.wayPoints[tempNextWayPoint];
 
+        // Calculate the total length of moving path
         while (tempNextWayPoint < WayPoints.wayPoints.Length)
         {
             pathLength += Vector3.Distance(pointA.position, pointB.position);
@@ -76,10 +77,5 @@ public class Mob : MonoBehaviour
         }
 
         return pathLength;
-    }
-
-    public int GetCredit()
-    {
-        return credit;
     }
 }

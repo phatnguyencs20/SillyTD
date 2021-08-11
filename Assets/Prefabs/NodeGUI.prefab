@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 6418210190304939880}
   - component: {fileID: 6418210190304939881}
   m_Layer: 0
-  m_Name: NodeUI
+  m_Name: NodeGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -272,10 +272,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6418210190304939883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917d40d331087c7499a39190394b6eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f0adade359fb474e955d2583cfb7ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heightOffset: 2
+  heightOffset: 1.2
   canvas: {fileID: 6418210191352146548}
   buildPanel: {fileID: 6418210189642229602}
   modificationPanel: {fileID: 6418210189741781611}
@@ -532,7 +532,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6418210190865517264}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 931365599, guid: d651279cb0c7a504291a88e9ae882a63, type: 3}
+        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
+        m_MethodName: UpgradeTurret
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6418210191137228068
 GameObject:
   m_ObjectHideFlags: 0

@@ -239,12 +239,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 15
-  searchInterval: 0.25
   fireCooldown: 10
   rotationSpeed: 10
   elevationSpeed: 10
   cost: 200
+  level: 0
   modelHeight: 0.8
+  searchInterval: 0.25
   partToRotate: {fileID: 7151122210392594791}
   partToElevate: {fileID: 2070505958040207379}
   firePoint: {fileID: 1106003865522855168}

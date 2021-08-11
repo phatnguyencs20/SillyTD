@@ -29,7 +29,7 @@ public class Node : MonoBehaviour
 
     private void OnMouseDown()
     {
-        NodeUI.nodeUI.SelectNode(this);
+        NodeGUI.nodeUI.SelectNode(this);
         BuildManager.buildManager.SelectNode(this);
     }
 

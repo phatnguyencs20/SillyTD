@@ -8,8 +8,6 @@ public abstract class Turret : MonoBehaviour
     [SerializeField]
     private float range;
     [SerializeField]
-    private float searchInterval;
-    [SerializeField]
     protected float fireCooldown;
     [SerializeField]
     protected float rotationSpeed;
@@ -17,10 +15,14 @@ public abstract class Turret : MonoBehaviour
     protected float elevationSpeed;
     [SerializeField]
     private int cost;
+    [SerializeField]
+    private int level;
 
     [Header("Unity Specifications")]
     [SerializeField]
     private float modelHeight;
+    [SerializeField]
+    private float searchInterval;
     [SerializeField]
     protected GameObject partToRotate;
     [SerializeField]
@@ -38,9 +40,22 @@ public abstract class Turret : MonoBehaviour
         return cost;
     }
 
+    public int GetLevel()
+    {
+        return level;
+    }
+
     public float GetModelHeight()
     {
         return modelHeight;
+    }
+
+    public void CopyTransform(Turret other)
+    {
+        transform.position = other.transform.position;
+        transform.rotation = other.transform.rotation;
+        partToRotate.transform.rotation = other.partToRotate.transform.rotation;
+        partToElevate.transform.localRotation = other.partToElevate.transform.localRotation;
     }
 
     protected IEnumerator SearchTarget()

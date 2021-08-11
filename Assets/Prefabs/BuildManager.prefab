@@ -43,6 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305f4a2023815744ea25b63bfb292d16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretPositionOffset: {x: 0, y: 0.6, z: 0}
-  artilleryTurret: {fileID: 6906786094303682216, guid: dfe5bdb0037e2514d94dac66028e9b3e, type: 3}
-  standardTurret: {fileID: 0}
+  buildOffsets:
+  - {x: 0, y: 0.6, z: 0.4}
+  turretBlueprints:
+  - {fileID: 6906786094303682216, guid: dfe5bdb0037e2514d94dac66028e9b3e, type: 3}
+  - {fileID: 6377370406969467707, guid: acd226a36a0b33e4eac082529a9967d7, type: 3}
+  - {fileID: 4493845052878754297, guid: b3a03bd17bf737544b91eecadf070dcd, type: 3}
+  - {fileID: 6606639923389474204, guid: 0eb55cca7d1e7d24fb1fa588ab2db021, type: 3}

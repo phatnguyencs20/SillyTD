@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeUI : MonoBehaviour
+public class NodeGUI : MonoBehaviour
 {
-    public static NodeUI nodeUI;
+    public static NodeGUI nodeUI;
 
     [SerializeField]
     private float heightOffset;
