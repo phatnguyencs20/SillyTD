@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 5894df5f69888044b95a3196ba9cb45e,
+    type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 98b4b6683279acf4ea6f18e7f5e471fb,
     type: 2}
 --- !u!196 &4
@@ -1055,7 +1056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &884003565
 Transform:
   m_ObjectHideFlags: 0
@@ -2237,7 +2238,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 21.95, y: 9.35}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 17.447338
+  m_FocalLength: 26.513245
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -2246,7 +2247,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 30.000002
+  field of view: 20
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2293,7 +2294,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panSpeed: 30
   panPadding: 10
+  panMinX: -20
+  panMaxX: 20
+  panMinZ: -30
+  panMaxZ: 0
   scrollSpeed: 10
+  scrollMin: 5
+  scrollMax: 20
 --- !u!1001 &8306012294814034512
 PrefabInstance:
   m_ObjectHideFlags: 0
